@@ -6,6 +6,6 @@ EXPOSE 500 4500 1701 1194 443 5555 992
 
 VOLUME /usr/local/bin/
 
-ADD entrypoint.sh /
-RUN chmod 0755 /entrypoint.sh \
+ADD ./entrypoint.sh /
+RUN chmod 0755 /entrypoint.sh 
 CMD ["/entrypoint.sh"]
