@@ -2,18 +2,19 @@ FROM ubuntu:16.04
 
 MAINTAINER Jaekwon Park <jaekwon.park@code-post.com>
 
+ENV VERSION v4.22-9634-beta-2016.11.27
+WORKDIR /usr/local/vpnserver
+
 RUN apt-get update \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git make ca-certificates build-essential libreadline-dev libssl-dev libncurses5-dev\
-	&& apt-get clean && rm -rf /var/lib/apt/lists/*
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends make ca-certificates gcc iptables \
+	&& apt-get clean && rm -rf /var/lib/apt/lists/* && \
+curl http://www.softether-download.com/files/softether/${VERSION}-tree/Linux/SoftEther_VPN_Server/64bit_-_Intel_x64_or_AMD64/softether-vpnserver-${VERSION}-linux-x64-64bit.tar.gz -o /tmp/softether-vpnserver.tar.gz && \ 
+tar -xzvf /tmp/softether-vpnserver.tar.gz -C /usr/local/ && \
+rm /tmp/softether-vpnserver.tar.gz && \
+make i_read_and_agree_the_license_agreement && \
+apt-get purge -y -q --auto-remove make ca-certificates gcc
 
-RUN git clone --depth 1 https://github.com/SoftEtherVPN/SoftEtherVPN.git /usr/local/src/vpnserver 
-RUN cd /usr/local/src/vpnserver && cp src/makefiles/linux_64bit.mak Makefile && make && \
-cp bin/vpnserver/vpnserver /usr/local/bin/vpnserver && \
-cp bin/vpnserver/hamcore.se2 //usr/local/bin/hamcore.se2 && \
-cp bin/vpncmd/vpncmd /usr/local/bin/vpncmd && \ 
-rm -rf /usr/local/src/vpnserver
-
-EXPOSE 500 4500 1701 1194 443 5555 992 
+EXPOSE 443/tcp 992/tcp 1194/tcp 1194/udp 5555/tcp 500/udp 4500/udp
 
 #VOLUME /usr/local/bin/
 
