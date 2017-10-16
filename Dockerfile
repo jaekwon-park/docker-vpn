@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 MAINTAINER Jaekwon Park <jaekwon.park@code-post.com>
 
 RUN apt-get update \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git make \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git make ca-certificates \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --depth 1 https://github.com/SoftEtherVPN/SoftEtherVPN.git /usr/local/src/vpnserver 
