@@ -6,7 +6,7 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git make \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN git clone --depth 1 https://github.com/SoftEtherVPN/SoftEtherVPN.git /usr/local/src/vpnserver && \
+RUN mkdir -p /usr/local/src/vpnserver && git clone --depth 1 https://github.com/SoftEtherVPN/SoftEtherVPN.git /usr/local/src/vpnserver && \
 cd /usr/local/src/vpnserver && cp src/makefiles/linux_64bit.mak Makefile && make && \
 cp bin/vpnserver/vpnserver /opt/usr/local/vpnserver && \
 cp bin/vpnserver/hamcore.se2 /opt/usrl/local/hamcore.se2 && \
