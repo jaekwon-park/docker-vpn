@@ -18,4 +18,4 @@ fi
 ln -s /var/log/vpnserver/*_log /usr/local/vpnserver/
 
 echo "Starting Softether vpn."
-exec /usr/local/vpnserver/vpnserver start
+exec /usr/local/vpnserver/vpnserver execsvc
